@@ -8,8 +8,8 @@ Project created by [Emilien Domenge-Heritier](http://www.domenge.fr/)
 
 ## Main features of this SPA
 
- - [TODO] - Ability to search a song
-  - [TODO] - Ability to display song informations into a grid layout
+ - [DOING] - Ability to search a song
+  - [DOING] - Ability to display song informations into a grid layout
   - [TODO] - Ability to select kind of informations you want and put each type of information into one column
   - [TODO] - Ability to sort informations using columns header
   - [TODO] - Ability to display dynamically more results when user scrolls down the web page ("Infinite scroll")

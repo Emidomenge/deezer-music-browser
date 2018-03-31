@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 var customData = require('./../demoData/deezer-api-results-sample.json');
 
+/*
+ *  This controller :
+ *      - Fetches data after receiving response from Deezer API query
+ */
 const searchResultsBody = (url) => (Comp) =>
     class SearchResultsBody extends Component {
         constructor(props) {

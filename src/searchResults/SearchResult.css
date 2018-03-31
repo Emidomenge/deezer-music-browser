@@ -1,0 +1,7 @@
+.searchResultsContainer {
+    padding-bottom: 35px;
+}
+
+.searchResultsContainer .table > tbody > tr > td {
+    vertical-align: middle;
+}

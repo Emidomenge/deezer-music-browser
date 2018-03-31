@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Row, Col, Jumbotron, FormGroup, InputGroup, FormControl, Glyphicon, Form, Button } from 'react-bootstrap';
 import logo from './../assets/logo.svg';
 
-const SearchBar = ({placeholderLabel}) => {
+const Searchbar = ({placeholderLabel}) => {
     return (
         <Jumbotron>
             <Grid>
@@ -48,4 +48,4 @@ const SearchBar = ({placeholderLabel}) => {
     )
 };
 
-export default SearchBar;
+export default Searchbar;
