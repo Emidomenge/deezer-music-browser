@@ -1,20 +1,48 @@
 import React from 'react';
-import { Grid, Jumbotron, Button } from 'react-bootstrap';
+import { Grid, Row, Col, Jumbotron, FormGroup, InputGroup, FormControl, Glyphicon, Form, ControlLabel, Button } from 'react-bootstrap';
+import logo from './../assets/logo.svg';
 
-const SearchBar = () => {
+const SearchBar = ({placeholderLabel}) => {
     return (
         <Jumbotron>
             <Grid>
-                <h1>Welcome to React</h1>
-                <p>
-                    <Button
-                        bsStyle="success"
-                        bsSize="large"
-                        href="http://react-bootstrap.github.io/components.html"
-                        target="_blank">
-                        View React Bootstrap Docs
-                    </Button>
-                </p>
+                {/*Search input - Sample 1*/}
+                <Row className="show-grid">
+                    <Col md={12}>
+                        <div>
+                            <img src={logo} className="App-logo" alt="logo" />
+                            <h1 className="App-title">Welcome</h1>
+                            <p className="App-intro">
+                                This app is running with Deezer API engine.
+                            </p>
+                        </div>
+                    </Col>
+                    <Col md={12} className="searchbarInput">
+                        <FormGroup>
+                            <InputGroup>
+                                <FormControl type="text" placeholder={placeholderLabel} />
+                                <InputGroup.Addon>
+                                    <Glyphicon glyph="music" />
+                                </InputGroup.Addon>
+                            </InputGroup>
+                        </FormGroup>
+                    </Col>
+                </Row>
+                {/*Search input - Sample 2*/}
+                <Row className="show-grid">
+                    <Col md={12} className="searchbarInput">
+                        <Form horizontal>
+                            <FormGroup>
+                                <Col sm={11}>
+                                    <FormControl type="email" placeholder={placeholderLabel} />
+                                </Col>
+                                <Col sm={1}>
+                                    <Button type="submit">Let's go</Button>
+                                </Col>
+                            </FormGroup>
+                        </Form>
+                    </Col>
+                </Row>
             </Grid>
         </Jumbotron>
     )

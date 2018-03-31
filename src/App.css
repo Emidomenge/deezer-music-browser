@@ -22,6 +22,17 @@
   font-size: large;
 }
 
+/* [BEGIN] searchbar component */
+.jumbotron {
+  margin-top: 55px;
+}
+
+.searchbarInput {
+  padding-left: 260px;
+  padding-right: 260px;
+}
+/* [END] searchbar component */
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
