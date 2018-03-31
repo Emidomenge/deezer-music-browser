@@ -1,39 +1,60 @@
+/* [BEGIN] app component */
 .App {
-  text-align: center;
+    text-align: center;
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+    animation: App-logo-spin infinite 20s linear;
+    height: 80px;
 }
 
 .App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+    background-color: #222;
+    height: 150px;
+    padding: 20px;
+    color: white;
 }
 
 .App-title {
-  font-size: 1.5em;
+    font-size: 1.5em;
 }
 
 .App-intro {
-  font-size: large;
+    font-size: large;
 }
 
+.searchResultsContainer {
+    padding-bottom: 35px;
+}
+
+/* [END] app component */
+
 /* [BEGIN] searchbar component */
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .jumbotron {
-  margin-top: 55px;
+    margin-top: 55px;
 }
 
 .searchbarInput {
-  padding-left: 260px;
-  padding-right: 260px;
+    padding-left: 260px;
+    padding-right: 260px;
 }
+
 /* [END] searchbar component */
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+/* [BEGIN] footer component */
+footer {
+    background-color: white;
+    padding-top: 15px;
 }
+
+/* [END] footer component */
+
