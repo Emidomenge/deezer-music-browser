@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-var customData = require('./../demoData/deezer-api-results-sample.json');
+//var customData = require('./../demoData/deezer-api-results-sample.json');
 
 /*
  *  This controller :
  *      - Fetches data after receiving response from Deezer API query
  */
-const searchResultsBody = (url) => (Comp) =>
+const withSearchResultsController = (url) => (WrappedComponent) =>
     class SearchResultsBody extends Component {
         constructor(props) {
             super(props);
 
             this.state = {
-                data: customData.data,
+                data: [],
                 isLoading: false,
                 error: null
             };
@@ -19,8 +19,9 @@ const searchResultsBody = (url) => (Comp) =>
 
         componentDidMount() {
             this.setState({ isLoading: true });
-
-            fetch(url)
+            // As app is running in localhost, use proxy to avoid CORS problem
+            var proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+            fetch(proxyUrl + url)
                 .then(response => {
                     if (response.ok) {
                         return response.json();
@@ -28,13 +29,13 @@ const searchResultsBody = (url) => (Comp) =>
                         throw new Error('Something went wrong ...');
                     }
                 })
-                .then(data => this.setState({ data: customData.data, isLoading: false }))
+                .then(deezerApiResults => this.setState({ data: deezerApiResults.data, isLoading: false }))
                 .catch(error => this.setState({ error, isLoading: false }));
         }
 
         render() {
-            return <Comp { ...this.props } { ...this.state } />
+            return <WrappedComponent { ...this.props } { ...this.state } />
         }
 };
 
-export default searchResultsBody;
+export default withSearchResultsController;

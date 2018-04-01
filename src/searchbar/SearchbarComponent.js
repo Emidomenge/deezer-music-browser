@@ -3,6 +3,23 @@ import { Grid, Row, Col, Jumbotron, FormGroup, InputGroup, FormControl, Glyphico
 import logo from './../assets/logo.svg';
 
 const Searchbar = ({placeholderLabel}) => {
+    var searchInput;
+    var searchInput2 = "";
+
+    const onClickTest = () => {
+        console.log("[onClickTest] search value is: " + searchInput2.value);
+        searchInput.value = searchInput2.value;
+    };
+
+    const updateSearchInput = event => {
+        searchInput.value = event.target.value;
+        searchInput2.value = event.target.value;
+        if(searchInput) {
+            console.log("[updateSearchInput] value is " + searchInput.value + " and " + searchInput2.value);
+        }
+    };
+
+
     return (
         <Jumbotron>
             <Grid>
@@ -20,7 +37,12 @@ const Searchbar = ({placeholderLabel}) => {
                     <Col md={12} className="searchbarInput">
                         <FormGroup>
                             <InputGroup>
-                                <FormControl type="text" placeholder={placeholderLabel} />
+                                <FormControl
+                                    type="text"
+                                    value={ searchInput }
+                                    inputRef={(ref) => {searchInput = ref}}
+                                    onChange={ event => updateSearchInput(event) }
+                                    placeholder={placeholderLabel} />
                                 <InputGroup.Addon>
                                     <Glyphicon glyph="music" />
                                 </InputGroup.Addon>
@@ -34,10 +56,15 @@ const Searchbar = ({placeholderLabel}) => {
                         <Form horizontal>
                             <FormGroup>
                                 <Col sm={11}>
-                                    <FormControl type="email" placeholder={placeholderLabel} />
+                                    <FormControl
+                                        type="text"
+                                        value={ searchInput2.value }
+                                        placeholder={placeholderLabel}
+                                        inputRef={(ref) => {searchInput2 = ref}}
+                                    />
                                 </Col>
                                 <Col sm={1}>
-                                    <Button type="submit">Let's go</Button>
+                                    <Button onClick={ onClickTest }>Let's go</Button>
                                 </Col>
                             </FormGroup>
                         </Form>

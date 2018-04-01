@@ -34,7 +34,7 @@ const SearchResults = ({dataToSerialize, isLoading, hasError}) => {
         )
     }
 
-    if (dataToSerialize.length == 0) {
+    if (dataToSerialize.length === 0) {
         return (
             <Jumbotron className="searchResultsContainer backgroundContainer">
                 <Grid>

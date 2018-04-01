@@ -3,11 +3,10 @@ import './App.css';
 import NavBar from "./navbar/NavbarComponent";
 import Footer from "./footer/FooterComponent";
 import Searchbar from "./searchbar/SearchbarComponent";
-import searchResultsController from "./searchResults/SearchResultsController"
 import SearchResults from "./searchResults/SearchResultsComponent"
+import withSearchResultsController from "./searchResults/SearchResultsController"
 
-const API = 'https://hn.algolia.com/api/v1/search?query=';
-const DEFAULT_QUERY = 'redux';
+const API_TEST = 'https://api.deezer.com/search/track?q=eminem';
 
 const App = ({ data, isLoading, error }) => {
     const musicRecordsResults = data || [];
@@ -21,4 +20,4 @@ const App = ({ data, isLoading, error }) => {
     );
 };
 
-export default searchResultsController(API + DEFAULT_QUERY)(App);
+export default withSearchResultsController(API_TEST)(App);
