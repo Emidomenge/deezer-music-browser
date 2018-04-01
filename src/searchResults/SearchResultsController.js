@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+const WAIT_INTERVAL = 1000;
+var _ = require('lodash');
 //var customData = require('./../demoData/deezer-api-results-sample.json');
 
 /*
@@ -13,15 +15,30 @@ const withSearchResultsController = (url) => (WrappedComponent) =>
             this.state = {
                 data: [],
                 isLoading: false,
-                error: null
+                error: null,
+                searchInputValue: "",
+                onChangeCallback: this.onSearchInputChange.bind(this)
             };
         }
 
+        triggerChangeCallback =
+            _.debounce(event => {
+                this.setState({
+                    searchInputValue: event.target.value
+                });
+                this.componentDidMount();
+            }, WAIT_INTERVAL);
+
+        onSearchInputChange(event) {
+            event.persist();
+            this.triggerChangeCallback(event);
+        };
+
         componentDidMount() {
-            this.setState({ isLoading: true });
+            this.setState({ isLoading: true, error: null });
             // As app is running in localhost, use proxy to avoid CORS problem
             var proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-            fetch(proxyUrl + url)
+            fetch(proxyUrl + url + this.state.searchInputValue)
                 .then(response => {
                     if (response.ok) {
                         return response.json();
@@ -29,7 +46,14 @@ const withSearchResultsController = (url) => (WrappedComponent) =>
                         throw new Error('Something went wrong ...');
                     }
                 })
-                .then(deezerApiResults => this.setState({ data: deezerApiResults.data, isLoading: false }))
+                .then(deezerApiResults => {
+                    if(deezerApiResults.error) {
+                        this.setState({ error: deezerApiResults.error, isLoading: false })
+                    }
+                    else {
+                        this.setState({ data: deezerApiResults.data, isLoading: false });
+                    }
+                })
                 .catch(error => this.setState({ error, isLoading: false }));
         }
 

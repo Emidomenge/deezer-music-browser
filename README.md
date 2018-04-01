@@ -8,12 +8,12 @@ Project created by [Emilien Domenge-Heritier](http://www.domenge.fr/)
 
 ## Main features of this SPA
 
- - [DOING] - Ability to search a song
-  - [DOING] - Ability to display song informations into a grid layout
+ - [DONE] - Ability to search a song
+  - [DONE] - Ability to display song informations into a grid layout
   - [TODO] - Ability to select kind of informations you want and put each type of information into one column
   - [TODO] - Ability to sort informations using columns header
-  - [TODO] - Ability to display dynamically more results when user scrolls down the web page ("Infinite scroll")
-  - [TODO] - Ability to filter dynamically results when user types on the search bar
+  - [DOING] - Ability to display dynamically more results when user scrolls down the web page ("Infinite scroll")
+  - [DONE] - Ability to filter dynamically results when user types on the search bar
 
 
 ## Available Scripts
@@ -39,6 +39,7 @@ Launches the test runner in the interactive watch mode.
 
  - React Bootstrap
  - React-spinkit
+ - Lodash
 
 ## Supported Browsers
 

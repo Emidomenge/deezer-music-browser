@@ -11,7 +11,7 @@ const SearchResults = ({dataToSerialize, isLoading, hasError}) => {
                         <Col md={12}>
                             <Glyphicon glyph="glyphicon glyphicon-remove-circle" bsSize="large"/>
                             <h4 className="backgroundMessage">Ouch, something went wrong:</h4>
-                            <p className="errorMessage">"{ hasError.message }"</p>
+                            <p className="errorMessage">"{ hasError.type }: { hasError.message } (Error code: { hasError.code })"</p>
                         </Col>
                     </Row>
                 </Grid>
