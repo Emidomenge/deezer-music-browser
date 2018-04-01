@@ -11,20 +11,11 @@ const DEFAULT_QUERY = 'redux';
 
 const App = ({ data, isLoading, error }) => {
     const musicRecordsResults = data || [];
-
-    if (error) {
-        return <p>{error.message}</p>;
-    }
-
-    if (isLoading) {
-        return <p>Loading ...</p>;
-    }
-
     return (
         <div className="App">
             <NavBar appName={"Deezer-music-browser"}/>
             <Searchbar placeholderLabel={"Search songs which you love !"}/>
-            <SearchResults dataToSerialize={musicRecordsResults}/>
+            <SearchResults dataToSerialize={musicRecordsResults} isLoading={isLoading} hasError={error}/>
             <Footer/>
         </div>
     );
