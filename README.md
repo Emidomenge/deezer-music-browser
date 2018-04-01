@@ -15,6 +15,14 @@ Project created by [Emilien Domenge-Heritier](http://www.domenge.fr/)
   - [DOING] - Ability to display dynamically more results when user scrolls down the web page ("Infinite scroll")
   - [DONE] - Ability to filter dynamically results when user types on the search bar
 
+## Things to improve
+
+  - Fill remaining vertical space on screen with `ResultsContainer` (for all support browser)
+  - Put a scroll back to top button
+  - Put a smooth fadein animation when reading results
+  - Put a counter which displays total found results  + an another for currently displayed results
+  - Improve UX of grid result layout for mobile screen resolution.
+
 
 ## Available Scripts
 

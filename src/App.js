@@ -8,13 +8,13 @@ import withSearchResultsController from "./searchResults/SearchResultsController
 
 const API_TEST = 'https://api.deezer.com/search/track?q=';
 
-const App = ({ data, isLoading, error,onChangeCallback }) => {
+const App = ({ data, isLoading, error, onChangeCallback, isSearchInputEmpty }) => {
     const musicRecordsResults = data || [];
     return (
         <div className="App">
             <NavBar appName={"Deezer-music-browser"}/>
             <Searchbar placeholderLabel={"Search songs which you love !"} onChangeCallback={onChangeCallback}/>
-            <SearchResults dataToSerialize={musicRecordsResults} isLoading={isLoading} hasError={error}/>
+            <SearchResults dataToSerialize={musicRecordsResults} isLoading={isLoading} hasError={error} isSearchInputEmpty={isSearchInputEmpty} />
             <Footer/>
         </div>
     );

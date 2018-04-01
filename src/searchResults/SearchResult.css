@@ -16,7 +16,7 @@
     background-color: dimgrey;
     margin: 0px;
     color: white;
-    height: 50vh;
+    height: 55vh;
     padding-top: 20vh;
 }
 
@@ -27,6 +27,10 @@
 
 .jumbotron .errorMessage, .jumbotron .infoMessage {
     font-size: 15px;
+}
+
+.emptyBackground {
+    background-color: #eee;
 }
 
 .errorMessage {

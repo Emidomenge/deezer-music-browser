@@ -17,7 +17,8 @@ const withSearchResultsController = (url) => (WrappedComponent) =>
                 isLoading: false,
                 error: null,
                 searchInputValue: "",
-                onChangeCallback: this.onSearchInputChange.bind(this)
+                onChangeCallback: this.onSearchInputChange.bind(this),
+                isSearchInputEmpty: true
             };
         }
 
@@ -35,26 +36,33 @@ const withSearchResultsController = (url) => (WrappedComponent) =>
         };
 
         componentDidMount() {
-            this.setState({ isLoading: true, error: null });
-            // As app is running in localhost, use proxy to avoid CORS problem
-            var proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-            fetch(proxyUrl + url + this.state.searchInputValue)
-                .then(response => {
-                    if (response.ok) {
-                        return response.json();
-                    } else {
-                        throw new Error('Something went wrong ...');
-                    }
-                })
-                .then(deezerApiResults => {
-                    if(deezerApiResults.error) {
-                        this.setState({ error: deezerApiResults.error, isLoading: false })
-                    }
-                    else {
-                        this.setState({ data: deezerApiResults.data, isLoading: false });
-                    }
-                })
-                .catch(error => this.setState({ error, isLoading: false }));
+            if(this.state.searchInputValue === "") {
+                this.setState({
+                    isSearchInputEmpty: true
+                });
+            }
+            else {
+                this.setState({ isLoading: true, error: null, isSearchInputEmpty: false });
+                // As app is running in localhost, use proxy to avoid CORS problem
+                var proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+                fetch(proxyUrl + url + this.state.searchInputValue)
+                    .then(response => {
+                        if (response.ok) {
+                            return response.json();
+                        } else {
+                            throw new Error('Something went wrong ...');
+                        }
+                    })
+                    .then(deezerApiResults => {
+                        if(deezerApiResults.error) {
+                            this.setState({ error: deezerApiResults.error, isLoading: false })
+                        }
+                        else {
+                            this.setState({ data: deezerApiResults.data, isLoading: false });
+                        }
+                    })
+                    .catch(error => this.setState({ error, isLoading: false }));
+            }
         }
 
         render() {

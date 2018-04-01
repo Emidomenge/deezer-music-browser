@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Row, Col, Table, Image, Jumbotron, Glyphicon } from 'react-bootstrap';
 var Spinner = require('react-spinkit');
 
-const SearchResults = ({dataToSerialize, isLoading, hasError}) => {
+const SearchResults = ({dataToSerialize, isLoading, hasError, isSearchInputEmpty}) => {
     if (hasError) {
         return (
             <Jumbotron className="searchResultsContainer backgroundContainer">
@@ -34,7 +34,7 @@ const SearchResults = ({dataToSerialize, isLoading, hasError}) => {
         )
     }
 
-    if (dataToSerialize.length === 0) {
+    if (dataToSerialize.length === 0 && !isSearchInputEmpty) {
         return (
             <Jumbotron className="searchResultsContainer backgroundContainer">
                 <Grid>
@@ -43,6 +43,19 @@ const SearchResults = ({dataToSerialize, isLoading, hasError}) => {
                             <Glyphicon glyph="glyphicon glyphicon-question-sign" bsSize="large"/>
                             <h4 className="backgroundMessage">No results found</h4>
                             <p className="infoMessage">Sorry, your search did not match anything.</p>
+                        </Col>
+                    </Row>
+                </Grid>
+            </Jumbotron>
+        )
+    }
+
+    if(isSearchInputEmpty) {
+        return (
+            <Jumbotron className="searchResultsContainer backgroundContainer emptyBackground">
+                <Grid>
+                    <Row>
+                        <Col md={12}>
                         </Col>
                     </Row>
                 </Grid>
