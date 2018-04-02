@@ -4,7 +4,9 @@ import InfiniteScroll from 'react-infinite-scroller';
 
 var Spinner = require('react-spinkit');
 
-const SearchResults = ({dataToSerialize, isLoading, hasError, isSearchInputEmpty, handleLoadMore}) => {
+const SearchResults = ({dataToSerialize, isLoading, hasError, isSearchInputEmpty, handleLoadMore, searchStatus}) => {
+    var loadingComponent = "";
+    var firstSearch = searchStatus === 10;
     if (hasError) {
         var getError = function() {
             var errorMsg = "";
@@ -29,7 +31,7 @@ const SearchResults = ({dataToSerialize, isLoading, hasError, isSearchInputEmpty
     }
 
     if (isLoading) {
-        return (
+        loadingComponent = (
             <Jumbotron className="searchResultsContainer backgroundContainer">
                 <Grid>
                     <Row>
@@ -40,10 +42,10 @@ const SearchResults = ({dataToSerialize, isLoading, hasError, isSearchInputEmpty
                     </Row>
                 </Grid>
             </Jumbotron>
-        )
+        );
+        if(firstSearch) return loadingComponent;
     }
-
-    if (dataToSerialize.length === 0 && !isSearchInputEmpty) {
+    else if (dataToSerialize.length === 0 && !isSearchInputEmpty) {
         return (
             <Jumbotron className="searchResultsContainer backgroundContainer">
                 <Grid>
@@ -58,8 +60,7 @@ const SearchResults = ({dataToSerialize, isLoading, hasError, isSearchInputEmpty
             </Jumbotron>
         )
     }
-
-    if(isSearchInputEmpty) {
+    else if(isSearchInputEmpty) {
         return (
             <Jumbotron className="searchResultsContainer backgroundContainer emptyBackground">
                 <Grid>
@@ -100,7 +101,7 @@ const SearchResults = ({dataToSerialize, isLoading, hasError, isSearchInputEmpty
                         pageStart={0}
                         loadMore={handleLoadMore}
                         hasMore={true}
-                        loader={<div className="loader" key={0}>Loading ...</div>}
+                        loader={loadingComponent}
                     >
                         <Table striped bordered condensed hover>
                             <thead>

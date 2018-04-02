@@ -10,9 +10,10 @@ Project created by [Emilien Domenge-Heritier](http://www.domenge.fr/)
 
  - [DONE] - Ability to search a song
   - [DONE] - Ability to display song informations into a grid layout
-  - [TODO] - Ability to sort informations using columns header
-  - [DOING] - Ability to display dynamically more results when user scrolls down the web page ("Infinite scroll")
+  - [DOING] - Ability to sort informations using columns header
+  - [DONE] - Ability to display dynamically more results when user scrolls down the web page ("Infinite scroll")
   - [DONE] - Ability to filter dynamically results when user types on the search bar
+  - [TODO] - Cover features with unit tests
 
 ## Things to improve
 
