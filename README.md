@@ -10,7 +10,6 @@ Project created by [Emilien Domenge-Heritier](http://www.domenge.fr/)
 
  - [DONE] - Ability to search a song
   - [DONE] - Ability to display song informations into a grid layout
-  - [TODO] - Ability to select kind of informations you want and put each type of information into one column
   - [TODO] - Ability to sort informations using columns header
   - [DOING] - Ability to display dynamically more results when user scrolls down the web page ("Infinite scroll")
   - [DONE] - Ability to filter dynamically results when user types on the search bar
@@ -22,6 +21,7 @@ Project created by [Emilien Domenge-Heritier](http://www.domenge.fr/)
   - Put a smooth fadein animation when reading results
   - Put a counter which displays total found results  + an another for currently displayed results
   - Improve UX of grid result layout for mobile screen resolution.
+  - Ability to select kind of informations you want and put each type of information into one column
 
 
 ## Available Scripts
@@ -48,6 +48,7 @@ Launches the test runner in the interactive watch mode.
  - React Bootstrap
  - React-spinkit
  - Lodash
+ - React Infinite Scroller
 
 ## Supported Browsers
 

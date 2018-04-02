@@ -1,8 +1,10 @@
 import React from 'react';
 import { Grid, Row, Col, Table, Image, Jumbotron, Glyphicon } from 'react-bootstrap';
+import InfiniteScroll from 'react-infinite-scroller';
+
 var Spinner = require('react-spinkit');
 
-const SearchResults = ({dataToSerialize, isLoading, hasError, isSearchInputEmpty}) => {
+const SearchResults = ({dataToSerialize, isLoading, hasError, isSearchInputEmpty, handleLoadMore}) => {
     if (hasError) {
         return (
             <Jumbotron className="searchResultsContainer backgroundContainer">
@@ -63,39 +65,52 @@ const SearchResults = ({dataToSerialize, isLoading, hasError, isSearchInputEmpty
         )
     }
 
+    var musicRecords = [];
+    dataToSerialize.map((musicRecord) => {
+        musicRecords.push(
+            <tr key={musicRecord.id}>
+                <td>{musicRecord.id}</td>
+                <td>
+                    <Image
+                        src={musicRecord.album.cover_medium}
+                        style={{width: 100, height: 100}}
+                    />
+                </td>
+                <td>{musicRecord.title}</td>
+                <td>{musicRecord.artist.name}</td>
+                <td>{musicRecord.album.title}</td>
+                <td>{musicRecord.duration} seconds</td>
+            </tr>
+        );
+        return null;
+    });
+
     return (
         <Grid className="searchResultsContainer">
             <Row>
                 <Col md={12}>
-                    <Table striped bordered condensed hover>
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Image</th>
-                            <th>Title</th>
-                            <th>Artist</th>
-                            <th>Album</th>
-                            <th>Duration</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {dataToSerialize.map(musicRecord =>
-                            <tr key={musicRecord.id}>
-                                <td>{musicRecord.id}</td>
-                                <td>
-                                    <Image
-                                        src={musicRecord.album.cover_medium}
-                                        style={{width: 100, height: 100}}
-                                    />
-                                </td>
-                                <td>{musicRecord.title}</td>
-                                <td>{musicRecord.artist.name}</td>
-                                <td>{musicRecord.album.title}</td>
-                                <td>{musicRecord.duration} seconds</td>
+                    <InfiniteScroll
+                        pageStart={0}
+                        loadMore={handleLoadMore}
+                        hasMore={true}
+                        loader={<div className="loader" key={0}>Loading ...</div>}
+                    >
+                        <Table striped bordered condensed hover>
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Image</th>
+                                <th>Title</th>
+                                <th>Artist</th>
+                                <th>Album</th>
+                                <th>Duration</th>
                             </tr>
-                        )}
-                        </tbody>
-                    </Table>
+                            </thead>
+                            <tbody>
+                            {musicRecords}
+                            </tbody>
+                        </Table>
+                    </InfiniteScroll>
                 </Col>
             </Row>
         </Grid>
