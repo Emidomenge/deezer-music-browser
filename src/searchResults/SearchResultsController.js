@@ -110,7 +110,7 @@ const withSearchResultsController = (url) => (WrappedComponent) =>
             var newSearch = false;
 
             // Check if this is a new search or not
-            if(this.state.currentComputedSearchInput !== this.state.searchInputValue) {
+            if(this.state.currentComputedSearchInput !== this.state.searchInputValue || this.state.error) {
                 this.setState({ data:[],
                     nbTotalFoundResults: null,
                     currentComputedSearchInput: "",
@@ -169,7 +169,6 @@ const withSearchResultsController = (url) => (WrappedComponent) =>
                     })
                     .then(deezerApiResults => {
                         if(deezerApiResults.error) {
-                            // TODO: fullclean
                             this.setState({ error: deezerApiResults.error, isLoading: false })
                         }
                         else {
@@ -202,7 +201,6 @@ const withSearchResultsController = (url) => (WrappedComponent) =>
                         }
                     })
                     .catch(error => {
-                        // TODO: fullclean
                         this.setState({ error, isLoading: false })
                     });
             }

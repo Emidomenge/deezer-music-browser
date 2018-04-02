@@ -10,6 +10,7 @@
     color: white;
     height: 55vh;
     padding-top: 20vh;
+    vertical-align: middle;
 }
 
 .rt-tr-group .rt-tr {
@@ -35,4 +36,13 @@
 
 .searchResultsContainer .glyphicon {
     font-size: 50px;
+}
+
+.smallLoading {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.smallLoading > h4 {
+    padding: 10px 10px;
 }

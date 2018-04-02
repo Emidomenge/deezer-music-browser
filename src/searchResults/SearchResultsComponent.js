@@ -6,6 +6,7 @@ var Spinner = require('react-spinkit');
 
 const SearchResults = ({dataToSerialize, isLoading, hasError, isSearchInputEmpty, handleLoadMore, searchStatus, onSortedCallback, columnSorted }) => {
     var loadingComponent = <span key={"voidLoadingComponent"}></span>;
+    var smallLoadingComponent = <span key={"voidSmallLoadingComponent"}></span>;
     var firstSearch = searchStatus === 10;
     var hardReload = searchStatus === 55;
     if (hasError) {
@@ -43,6 +44,19 @@ const SearchResults = ({dataToSerialize, isLoading, hasError, isSearchInputEmpty
                     </Row>
                 </Grid>
             </Jumbotron>
+        );
+        smallLoadingComponent = (
+            <Grid>
+                <Row>
+                    <Col md={12}>
+                        <div className="smallLoading">
+                            <Spinner name="ball-beat" />
+                            <h4 className="backgroundMessage">Loading more results...</h4>
+                            <Spinner name="ball-beat" />
+                        </div>
+                    </Col>
+                </Row>
+            </Grid>
         );
         if(firstSearch || hardReload) return loadingComponent;
     }
@@ -110,7 +124,7 @@ const SearchResults = ({dataToSerialize, isLoading, hasError, isSearchInputEmpty
                         pageStart={0}
                         loadMore={handleLoadMore}
                         hasMore={true}
-                        loader={loadingComponent}
+                        loader={smallLoadingComponent}
                     >
                         <ReactTable
                             showPagination={false}
