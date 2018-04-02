@@ -21,7 +21,7 @@ const Searchbar = ({placeholderLabel, onChangeCallback}) => {
                             <InputGroup>
                                 <FormControl
                                     type="text"
-                                    onChange={ onChangeCallback }
+                                    onInput={ onChangeCallback }
                                     placeholder={ placeholderLabel } />
                                 <InputGroup.Addon>
                                     <Glyphicon glyph="music" />

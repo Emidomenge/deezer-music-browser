@@ -6,6 +6,13 @@ var Spinner = require('react-spinkit');
 
 const SearchResults = ({dataToSerialize, isLoading, hasError, isSearchInputEmpty, handleLoadMore}) => {
     if (hasError) {
+        var getError = function() {
+            var errorMsg = "";
+            errorMsg = hasError.type ? hasError.type + ": " + errorMsg : errorMsg;
+            errorMsg = hasError.message ? errorMsg + hasError.message : errorMsg;
+            errorMsg = hasError.code ? errorMsg + " (Error code: " + hasError.code + ")" : errorMsg;
+            return '"' + errorMsg + '"';
+        };
         return (
             <Jumbotron className="searchResultsContainer backgroundContainer">
                 <Grid>
@@ -13,7 +20,7 @@ const SearchResults = ({dataToSerialize, isLoading, hasError, isSearchInputEmpty
                         <Col md={12}>
                             <Glyphicon glyph="glyphicon glyphicon-remove-circle" bsSize="large"/>
                             <h4 className="backgroundMessage">Ouch, something went wrong:</h4>
-                            <p className="errorMessage">"{ hasError.type }: { hasError.message } (Error code: { hasError.code })"</p>
+                            <p className="errorMessage">{ getError() }</p>
                         </Col>
                     </Row>
                 </Grid>

@@ -48,7 +48,7 @@ const withSearchResultsController = (url) => (WrappedComponent) =>
             arr.forEach(function(itm) {
                 var unique = true;
                 cleaned.forEach(function(itm2) {
-                    if (_.isEqual(itm, itm2)) unique = false;
+                    if (_.isEqual(itm.id, itm2.id)) unique = false;
                 });
                 if (unique)  cleaned.push(itm);
             });
@@ -73,9 +73,10 @@ const withSearchResultsController = (url) => (WrappedComponent) =>
                 }
 
                 // As app is running in localhost, use proxy to avoid CORS problem
-                var proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+                // Works with modern browser only: var proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+                var proxyUrlIE9 = 'http://cors-proxy.htmldriven.com/?url='; // IE9 requires http url only (not https)
 
-                fetch(newSearch ? proxyUrl + url + this.state.searchInputValue : proxyUrl + this.state.nextQueryUrl)
+                fetch(newSearch ? proxyUrlIE9 + encodeURIComponent(url + this.state.searchInputValue) : proxyUrlIE9 + encodeURIComponent(this.state.nextQueryUrl))
                     .then(response => {
                         if (response.ok) {
                             return response.json();
@@ -89,6 +90,7 @@ const withSearchResultsController = (url) => (WrappedComponent) =>
                             this.setState({ error: deezerApiResults.error, isLoading: false })
                         }
                         else {
+                            deezerApiResults = JSON.parse(deezerApiResults.body);
                             var mergedArray = (this.state.data).concat(deezerApiResults.data);
                             var uniqueArray = this.extractUniqueArrayFrom(mergedArray);
                             var nbDuplicate = mergedArray.length - uniqueArray.length;
