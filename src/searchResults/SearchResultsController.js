@@ -106,11 +106,8 @@ const withSearchResultsController = (url) => (WrappedComponent) =>
 
                 this.setState(refreshState);
 
-                // As app is running in localhost, use proxy to avoid CORS problem
-                var proxyUrlIE9 = 'http://cors-proxy.htmldriven.com/?url='; // IE9 requires http url only (not https)
-
-                // If first proxy is too slow:
-                var proxyUrlIE9_backup = 'http://anyorigin.com/go?url=';
+                // As app is running in localhost, use proxy to avoid CORS problem (WARNING: might be too slow, sometimes...)
+                var proxyUrlIE9 = 'http://cors-proxy.htmldriven.com/?url=';
 
                 fetch(newSearch ? proxyUrlIE9 + encodeURIComponent(url + this.state.searchInputValue) : proxyUrlIE9 + encodeURIComponent(this.state.nextQueryUrl))
                     .then(response => {

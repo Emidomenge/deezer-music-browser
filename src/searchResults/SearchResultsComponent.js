@@ -5,7 +5,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 var Spinner = require('react-spinkit');
 
 const SearchResults = ({dataToSerialize, isLoading, hasError, isSearchInputEmpty, handleLoadMore, searchStatus}) => {
-    var loadingComponent = "";
+    var loadingComponent = <span key={"voidLoadingComponent"}></span>;
     var firstSearch = searchStatus === 10;
     if (hasError) {
         var getError = function() {
@@ -32,7 +32,7 @@ const SearchResults = ({dataToSerialize, isLoading, hasError, isSearchInputEmpty
 
     if (isLoading) {
         loadingComponent = (
-            <Jumbotron className="searchResultsContainer backgroundContainer">
+            <Jumbotron key={"basicLoadingComponent"} className="searchResultsContainer backgroundContainer">
                 <Grid>
                     <Row>
                         <Col md={12}>
