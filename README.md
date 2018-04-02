@@ -50,6 +50,7 @@ Launches the test runner in the interactive watch mode.
  - React-spinkit
  - Lodash
  - React Infinite Scroller
+ - React-table
 
 ## Supported Browsers
 

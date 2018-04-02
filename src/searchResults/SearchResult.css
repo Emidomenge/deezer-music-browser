@@ -3,14 +3,6 @@
     padding-top: 30px;
 }
 
-.searchResultsContainer .table > tbody > tr > td {
-    vertical-align: middle;
-}
-
-.searchResultsContainer .table > thead > tr > th {
-    text-align: center;
-}
-
 .backgroundContainer {
     text-align: -webkit-center;
     background-color: dimgrey;
@@ -18,6 +10,10 @@
     color: white;
     height: 55vh;
     padding-top: 20vh;
+}
+
+.rt-tr-group .rt-tr {
+    align-items: center;
 }
 
 .backgroundMessage {

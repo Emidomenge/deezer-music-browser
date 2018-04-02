@@ -1,7 +1,7 @@
 import React from 'react';
-import { Grid, Row, Col, Table, Image, Jumbotron, Glyphicon } from 'react-bootstrap';
+import { Grid, Row, Col, Image, Jumbotron, Glyphicon } from 'react-bootstrap';
 import InfiniteScroll from 'react-infinite-scroller';
-
+import ReactTable from 'react-table'
 var Spinner = require('react-spinkit');
 
 const SearchResults = ({dataToSerialize, isLoading, hasError, isSearchInputEmpty, handleLoadMore, searchStatus}) => {
@@ -73,25 +73,30 @@ const SearchResults = ({dataToSerialize, isLoading, hasError, isSearchInputEmpty
         )
     }
 
-    var musicRecords = [];
-    dataToSerialize.map((musicRecord) => {
-        musicRecords.push(
-            <tr key={musicRecord.id}>
-                <td>{musicRecord.id}</td>
-                <td>
-                    <Image
-                        src={musicRecord.album.cover_medium}
-                        style={{width: 100, height: 100}}
-                    />
-                </td>
-                <td>{musicRecord.title}</td>
-                <td>{musicRecord.artist.name}</td>
-                <td>{musicRecord.album.title}</td>
-                <td>{musicRecord.duration} seconds</td>
-            </tr>
-        );
-        return null;
-    });
+    const columns = [{
+        Header: '#',
+        accessor: 'id'
+    }, {
+        Header: 'Image',
+        accessor: 'album.cover_medium',
+        Cell: props => (
+            <Image
+                src={props.value}
+                style={{width: 100, height: 100}}
+            />
+        ),
+        sortable: false
+    }, {
+        Header: 'Title',
+        accessor: 'title',
+    }, {
+        Header: 'Artist',
+        accessor: 'artist.name'
+    }, {
+        Header: 'Duration',
+        accessor: 'duration',
+        Cell: props => <span>{props.value} seconds</span>
+    }];
 
     return (
         <Grid className="searchResultsContainer">
@@ -103,21 +108,14 @@ const SearchResults = ({dataToSerialize, isLoading, hasError, isSearchInputEmpty
                         hasMore={true}
                         loader={loadingComponent}
                     >
-                        <Table striped bordered condensed hover>
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Image</th>
-                                <th>Title</th>
-                                <th>Artist</th>
-                                <th>Album</th>
-                                <th>Duration</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {musicRecords}
-                            </tbody>
-                        </Table>
+                        <ReactTable
+                            showPagination={false}
+                            defaultPageSize={300}
+                            collapseOnDataChange={false}
+                            minRows={0}
+                            data={dataToSerialize}
+                            columns={columns}
+                        />
                     </InfiniteScroll>
                 </Col>
             </Row>
