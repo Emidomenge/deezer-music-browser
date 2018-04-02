@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 const WAIT_INTERVAL = 1000;
 var _ = require('lodash');
-//var customData = require('./../demoData/deezer-api-results-sample.json');
+
+// IE9 compatibility:
+if(!window.console) window.console = {};
+if(!window.console.log) window.console.log = function() {};
 
 /*
  *  This controller :
@@ -73,8 +76,10 @@ const withSearchResultsController = (url) => (WrappedComponent) =>
                 }
 
                 // As app is running in localhost, use proxy to avoid CORS problem
-                // Works with modern browser only: var proxyUrl = 'https://cors-anywhere.herokuapp.com/';
                 var proxyUrlIE9 = 'http://cors-proxy.htmldriven.com/?url='; // IE9 requires http url only (not https)
+
+                // If first proxy is too slow:
+                var proxyUrlIE9_Backup = 'http://anyorigin.com/go?url=';
 
                 fetch(newSearch ? proxyUrlIE9 + encodeURIComponent(url + this.state.searchInputValue) : proxyUrlIE9 + encodeURIComponent(this.state.nextQueryUrl))
                     .then(response => {
