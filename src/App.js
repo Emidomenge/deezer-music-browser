@@ -8,7 +8,7 @@ import withSearchResultsController from "./searchResults/SearchResultsController
 
 const API_TEST = 'https://api.deezer.com/search/track?q=';
 
-const App = ({ data, isLoading, error, onChangeCallback, isSearchInputEmpty, handleLoadMoreCallback, apiCallStatus }) => {
+const App = ({ data, isLoading, error, onChangeCallback, isSearchInputEmpty, handleLoadMoreCallback, apiCallStatus, sortCallback, columnSorted }) => {
     const musicRecordsResults = data || [];
     return (
         <div className="App">
@@ -21,6 +21,8 @@ const App = ({ data, isLoading, error, onChangeCallback, isSearchInputEmpty, han
                 isSearchInputEmpty={isSearchInputEmpty}
                 handleLoadMore={handleLoadMoreCallback}
                 searchStatus={apiCallStatus}
+                onSortedCallback={sortCallback}
+                columnSorted={columnSorted}
             />
             <Footer/>
         </div>

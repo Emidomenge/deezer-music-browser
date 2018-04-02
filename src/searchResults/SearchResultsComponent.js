@@ -4,9 +4,10 @@ import InfiniteScroll from 'react-infinite-scroller';
 import ReactTable from 'react-table'
 var Spinner = require('react-spinkit');
 
-const SearchResults = ({dataToSerialize, isLoading, hasError, isSearchInputEmpty, handleLoadMore, searchStatus}) => {
+const SearchResults = ({dataToSerialize, isLoading, hasError, isSearchInputEmpty, handleLoadMore, searchStatus, onSortedCallback, columnSorted }) => {
     var loadingComponent = <span key={"voidLoadingComponent"}></span>;
     var firstSearch = searchStatus === 10;
+    var hardReload = searchStatus === 55;
     if (hasError) {
         var getError = function() {
             var errorMsg = "";
@@ -43,7 +44,7 @@ const SearchResults = ({dataToSerialize, isLoading, hasError, isSearchInputEmpty
                 </Grid>
             </Jumbotron>
         );
-        if(firstSearch) return loadingComponent;
+        if(firstSearch || hardReload) return loadingComponent;
     }
     else if (dataToSerialize.length === 0 && !isSearchInputEmpty) {
         return (
@@ -90,6 +91,9 @@ const SearchResults = ({dataToSerialize, isLoading, hasError, isSearchInputEmpty
         Header: 'Title',
         accessor: 'title',
     }, {
+        Header: 'Album',
+        accessor: 'album.title',
+    }, {
         Header: 'Artist',
         accessor: 'artist.name'
     }, {
@@ -115,6 +119,8 @@ const SearchResults = ({dataToSerialize, isLoading, hasError, isSearchInputEmpty
                             minRows={0}
                             data={dataToSerialize}
                             columns={columns}
+                            onSortedChange={onSortedCallback}
+                            defaultSorted={columnSorted}
                         />
                     </InfiniteScroll>
                 </Col>

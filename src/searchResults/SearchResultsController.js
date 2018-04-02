@@ -16,6 +16,7 @@ if(!window.console.log) window.console.log = function() {};
  *          0   = 'No search to process'
  *          10  = 'First search processing'
  *          50  = 'Search processing + more results to display (ie: infinite loop is ON)'
+ *          55  = 'Search processing with hard reload"
  *          100 = 'Search finished (ie: infinite loop is OFF)
  */
 const withSearchResultsController = (url) => (WrappedComponent) =>
@@ -35,7 +36,10 @@ const withSearchResultsController = (url) => (WrappedComponent) =>
                 currentComputedSearchInput: "",
                 handleLoadMoreCallback : this.handleLoadMore.bind(this),
                 nbApiCall: 0,
-                apiCallStatus: 0
+                apiCallStatus: 0,
+                sortCallback : this.handleSort.bind(this),
+                urlSortOption: "",
+                columnSorted: []
             };
         }
 
@@ -68,12 +72,54 @@ const withSearchResultsController = (url) => (WrappedComponent) =>
             return cleaned;
         };
 
+        handleSort(columnSorted) {
+            var columnKey = "";
+            var sortKey = columnSorted[0].desc ? "_DESC" : "_ASC";
+
+            switch(columnSorted[0].id) {
+                case "title":
+                    columnKey = "TRACK";
+                    break;
+                case "artist.name":
+                    columnKey = "ARTIST";
+                    break;
+                case "album.title":
+                    columnKey = "ALBUM";
+                    break;
+                case "duration":
+                    columnKey = "DURATION";
+                    break;
+                default:
+                    console.log("[handleSort] no column key matched");
+                    return;
+            }
+            this.setState({
+                data: [],
+                nbTotalFoundResults: null,
+                nextQueryUrl: url + this.state.searchInputValue,
+                nbApiCall: 0,
+                apiCallStatus: 55, // force hard reload
+                urlSortOption: "&order=" + columnKey + sortKey,
+                columnSorted: columnSorted
+            }, function() {
+                if(!this.state.isLoading) this.componentDidMount();
+            });
+        }
+
         componentDidMount() {
             var newSearch = false;
 
             // Check if this is a new search or not
             if(this.state.currentComputedSearchInput !== this.state.searchInputValue) {
-                this.setState({ data:[], nbTotalFoundResults: null, currentComputedSearchInput: "", nextQueryUrl: "", nbApiCall: 0, apiCallStatus: 10});
+                this.setState({ data:[],
+                    nbTotalFoundResults: null,
+                    currentComputedSearchInput: "",
+                    nextQueryUrl: "",
+                    nbApiCall: 0,
+                    apiCallStatus: 10,
+                    urlSortOption: "",
+                    columnSorted: []
+                });
                 newSearch = true;
                 console.log("[Info] New search detected.")
             }
@@ -92,7 +138,6 @@ const withSearchResultsController = (url) => (WrappedComponent) =>
                     error: null,
                     isSearchInputEmpty: false,
                 };
-                //this.setState({ isLoading: true, error: null, isSearchInputEmpty: false, apiCallStatus: 50 });
 
                 // Check if no more results to display (= end of "infinite" loop)
                 if(this.state.nbTotalFoundResults < DEEZER_API_INDEX_INTERVAL * this.state.nbApiCall) {
@@ -109,7 +154,12 @@ const withSearchResultsController = (url) => (WrappedComponent) =>
                 // As app is running in localhost, use proxy to avoid CORS problem (WARNING: might be too slow, sometimes...)
                 var proxyUrlIE9 = 'http://cors-proxy.htmldriven.com/?url=';
 
-                fetch(newSearch ? proxyUrlIE9 + encodeURIComponent(url + this.state.searchInputValue) : proxyUrlIE9 + encodeURIComponent(this.state.nextQueryUrl))
+                var urlFirstSearch = proxyUrlIE9 + encodeURIComponent(url + this.state.searchInputValue + this.state.urlSortOption);
+                var urlContinueSearch = proxyUrlIE9 + encodeURIComponent(this.state.nextQueryUrl + this.state.urlSortOption);
+
+                console.log("[componentDidMount] Option: '" + this.state.urlSortOption + "' with status: " + this.state.apiCallStatus);
+
+                fetch(newSearch ? urlFirstSearch : urlContinueSearch)
                     .then(response => {
                         if (response.ok) {
                             return response.json();
@@ -127,14 +177,18 @@ const withSearchResultsController = (url) => (WrappedComponent) =>
                             var mergedArray = (this.state.data).concat(deezerApiResults.data);
                             var uniqueArray = this.extractUniqueArrayFrom(mergedArray);
                             var nbDuplicate = mergedArray.length - uniqueArray.length;
+
                             if(nbDuplicate !== 0) {
                                 console.log("[Info] There was " + nbDuplicate + " duplicate(s) detected record.");
                             }
+
                             console.log("[Info] Current amount of displayed records found " + uniqueArray.length + ".");
                             console.log("------------------");
+
                             var searchInputValue = this.state.searchInputValue;
                             var computedNbApiCall = this.state.nbApiCall + 1;
-                            var isFirstCall = computedNbApiCall === 1 ? 10 : 50; // 10 = firstCall status | 50 = 'more results to display' status
+                            var currentStatus = computedNbApiCall === 1 ? 10 : 50; // 10 = firstCall status | 50 = 'more results to display' status
+                            currentStatus = currentStatus === 55 ? 50 : currentStatus; // put back to status 50 after hard reload done
 
                             this.setState({
                                 data: uniqueArray,
@@ -143,7 +197,7 @@ const withSearchResultsController = (url) => (WrappedComponent) =>
                                 currentComputedSearchInput: searchInputValue,
                                 isLoading: false,
                                 nbApiCall: computedNbApiCall,
-                                apiCallStatus: isFirstCall
+                                apiCallStatus: currentStatus
                             });
                         }
                     })
