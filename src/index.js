@@ -10,7 +10,8 @@ import 'react-table/react-table.css'
 import './index.css';
 import './searchbar/Searchbar.css';
 import './footer/Footer.css';
-import './searchResults/SearchResult.css'
+import './searchResults/SearchResult.css';
+import './scrollTopButton/ScrollTopButton.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 

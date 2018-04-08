@@ -1,0 +1,13 @@
+.scrollTopBtn {
+    opacity: 0.3;
+    position: fixed;
+    bottom: 55px;
+    left: 40px;
+    border-radius: 5px;
+    border: none;
+
+}
+
+.scrollTopBtn:hover {
+    opacity: 1;
+}
