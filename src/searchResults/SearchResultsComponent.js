@@ -1,7 +1,9 @@
 import React from 'react';
 import { Grid, Row, Col, Image, Jumbotron, Glyphicon } from 'react-bootstrap';
 import InfiniteScroll from 'react-infinite-scroller';
-import ReactTable from 'react-table'
+import ReactTable from 'react-table';
+import Fade from 'react-reveal/Fade';
+import Zoom from 'react-reveal/Zoom';
 var Spinner = require('react-spinkit');
 
 const SearchResults = ({dataToSerialize, isLoading, hasError, isSearchInputEmpty, handleLoadMore, searchStatus, onSortedCallback, columnSorted }) => {
@@ -34,16 +36,18 @@ const SearchResults = ({dataToSerialize, isLoading, hasError, isSearchInputEmpty
 
     if (isLoading) {
         loadingComponent = (
-            <Jumbotron key={"basicLoadingComponent"} className="searchResultsContainer backgroundContainer">
-                <Grid>
-                    <Row>
-                        <Col md={12}>
-                            <Spinner name="folding-cube" fadeIn="quarter" color="white"/>
-                            <h4 className="backgroundMessage">Loading...</h4>
-                        </Col>
-                    </Row>
-                </Grid>
-            </Jumbotron>
+            <Fade>
+                <Jumbotron key={"basicLoadingComponent"} className="searchResultsContainer backgroundContainer">
+                    <Grid>
+                        <Row>
+                            <Col md={12}>
+                                <Spinner name="folding-cube" fadeIn="quarter" color="white"/>
+                                <h4 className="backgroundMessage">Loading...</h4>
+                            </Col>
+                        </Row>
+                    </Grid>
+                </Jumbotron>
+            </Fade>
         );
         smallLoadingComponent = (
             <Grid>
@@ -88,33 +92,50 @@ const SearchResults = ({dataToSerialize, isLoading, hasError, isSearchInputEmpty
         )
     }
 
-    const columns = [{
-        Header: '#',
-        accessor: 'id'
-    }, {
-        Header: 'Image',
-        accessor: 'album.cover_medium',
-        Cell: props => (
-            <Image
-                src={props.value}
-                style={{width: 100, height: 100}}
-            />
-        ),
-        sortable: false
-    }, {
-        Header: 'Title',
-        accessor: 'title',
-    }, {
-        Header: 'Album',
-        accessor: 'album.title',
-    }, {
-        Header: 'Artist',
-        accessor: 'artist.name'
-    }, {
-        Header: 'Duration',
-        accessor: 'duration',
-        Cell: props => <span>{props.value} seconds</span>
-    }];
+    const columns = [
+        {
+            Header: '#',
+            accessor: 'id',
+            Cell: props => (<Fade bottom>
+                <div>{props.value}</div>
+            </Fade>)
+        }, {
+            Header: 'Image',
+            accessor: 'album.cover_medium',
+            Cell: props => (
+                <Fade>
+                    <Image
+                        src={props.value}
+                        style={{width: 100, height: 100}}
+                    />
+                </Fade>
+            ),
+            sortable: false
+        }, {
+            Header: 'Title',
+            accessor: 'title',
+            Cell: props => (<Fade bottom>
+                <div>{props.value}</div>
+            </Fade>)
+        }, {
+            Header: 'Album',
+            accessor: 'album.title',
+            Cell: props => (<Fade bottom>
+                <div>{props.value}</div>
+            </Fade>)
+        }, {
+            Header: 'Artist',
+            accessor: 'artist.name',
+            Cell: props => (<Fade bottom>
+                <div>{props.value}</div>
+            </Fade>)
+        }, {
+            Header: 'Duration',
+            accessor: 'duration',
+            Cell: props => (<Fade bottom>
+                <div>{props.value} seconds</div>
+            </Fade>)
+        }];
 
     return (
         <Grid className="searchResultsContainer">
@@ -126,6 +147,7 @@ const SearchResults = ({dataToSerialize, isLoading, hasError, isSearchInputEmpty
                         hasMore={true}
                         loader={smallLoadingComponent}
                     >
+                    <Zoom>
                         <ReactTable
                             showPagination={false}
                             defaultPageSize={300}
@@ -136,6 +158,7 @@ const SearchResults = ({dataToSerialize, isLoading, hasError, isSearchInputEmpty
                             onSortedChange={onSortedCallback}
                             defaultSorted={columnSorted}
                         />
+                    </Zoom>
                     </InfiniteScroll>
                 </Col>
             </Row>

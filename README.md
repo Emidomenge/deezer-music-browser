@@ -61,6 +61,7 @@ Launches the test runner in the interactive watch mode.
  - [Lodash](https://lodash.com/)
  - [React Infinite Scroller](https://github.com/CassetteRocks/react-infinite-scroller)
  - [React-table](https://react-table.js.org/#/story/readme)
+ - [React-reveal](https://github.com/rnosov/react-reveal)
 
 ## Supported Browsers
 
