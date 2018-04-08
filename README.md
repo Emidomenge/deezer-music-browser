@@ -21,8 +21,7 @@ Project created by [Emilien Domenge-Heritier](http://www.domenge.fr/)
 ## Things to improve
 
  - Fill remaining vertical space on screen with `ResultsContainer` (for all support browser)
- - Put a scroll back to top button
- - Put a smooth fadein animation when reading results
+ - Display scroll back to top button only when needed
  - Put a counter which displays total found results  + an another for currently displayed results
  - Improve UX of grid result layout for mobile screen resolution.
  - Ability to select kind of informations you want and put each type of information into one column

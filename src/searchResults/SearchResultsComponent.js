@@ -50,7 +50,7 @@ const SearchResults = ({dataToSerialize, isLoading, hasError, isSearchInputEmpty
             </Fade>
         );
         smallLoadingComponent = (
-            <Grid>
+            <Grid key={"smallLoadingComponent"}>
                 <Row>
                     <Col md={12}>
                         <div className="smallLoading">
