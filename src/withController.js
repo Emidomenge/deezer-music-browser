@@ -106,7 +106,7 @@ const WithController = url => WrappedComponent => class SearchResultsBody extend
       this.setState(refreshState);
 
       // As app is running in localhost, use proxy to avoid CORS problem (WARNING: might be too slow, sometimes...)
-      const proxyUrlIE9 = 'http://cors-proxy.htmldriven.com/?url=';
+      const proxyUrlIE9 = 'https://cors-proxy.htmldriven.com/?url=';
 
       const urlFirstSearch = proxyUrlIE9 + encodeURIComponent(url + searchInputValue + urlSortOption);
       const urlContinueSearch = proxyUrlIE9 + encodeURIComponent(nextQueryUrl + urlSortOption);

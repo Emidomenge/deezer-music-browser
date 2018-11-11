@@ -43,7 +43,8 @@ Project created by [Emilien Domenge-Heritier](http://www.domenge.fr/)
   
 **Prerequisite:**  
  - Make use you have React:  `npm install -g create-react-app`  
- - Install node package dependencies: `npm install`  
+ - Install node package dependencies: `npm install` 
+ - In order to avoid **CORS problems** with the API, download an extension for your favorite browser, such as [Allow-Control-Allow-Origin: *](https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi) if you're using Chrome. 
   
 Then, in the project directory, you can run:  
   
