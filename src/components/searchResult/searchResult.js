@@ -1,5 +1,5 @@
 import {
-  Col, Glyphicon, Grid, Jumbotron, Row,
+  Col, Glyphicon, Grid, Row,
 } from 'react-bootstrap';
 import Fade from 'react-reveal/Fade';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -9,6 +9,8 @@ import React from 'react';
 import Spinner from 'react-spinkit';
 import './searchResult.css';
 import PropTypes from 'prop-types';
+import BlockInfo from './components/blockInfo';
+import XsLoading from './components/xsLoading';
 import columsSettings from './columnsSettings';
 
 const SearchResult = (props) => {
@@ -37,72 +39,38 @@ const SearchResult = (props) => {
       return `"${errorMsg}"`;
     };
     return (
-      <Jumbotron className="searchResultsContainer backgroundContainer">
-        <Grid>
-          <Row>
-            <Col md={12}>
-              <Glyphicon glyph="glyphicon glyphicon-remove-circle" bsSize="large" />
-              <h4 className="backgroundMessage">Ouch, something went wrong:</h4>
-              <p className="errorMessage">{ getError() }</p>
-            </Col>
-          </Row>
-        </Grid>
-      </Jumbotron>
+      <BlockInfo>
+        <Glyphicon glyph="glyphicon glyphicon-remove-circle" bsSize="large" />
+        <h4 className="backgroundMessage">Ouch, something went wrong:</h4>
+        <p className="errorMessage">{ getError() }</p>
+      </BlockInfo>
     );
   }
 
   if (isLoading) {
     loadingComponent = (
       <Fade>
-        <Jumbotron key="basicLoadingComponent" className="searchResultsContainer backgroundContainer">
-          <Grid>
-            <Row>
-              <Col md={12}>
-                <Spinner name="folding-cube" fadeIn="quarter" color="white" />
-                <h4 className="backgroundMessage">Loading...</h4>
-              </Col>
-            </Row>
-          </Grid>
-        </Jumbotron>
+        <BlockInfo
+          keyName="basicLoadingComponent"
+        >
+          <Spinner name="folding-cube" fadeIn="quarter" color="white" />
+          <h4 className="backgroundMessage">Loading...</h4>
+        </BlockInfo>
       </Fade>
     );
-    smallLoadingComponent = (
-      <Grid key="smallLoadingComponent">
-        <Row>
-          <Col md={12}>
-            <div className="smallLoading">
-              <Spinner name="ball-beat" />
-              <h4 className="backgroundMessage">Loading more results...</h4>
-              <Spinner name="ball-beat" />
-            </div>
-          </Col>
-        </Row>
-      </Grid>
-    );
+    smallLoadingComponent = <XsLoading />;
     if (firstSearch || hardReload) return loadingComponent;
   } else if (dataToSerialize.length === 0 && !isSearchInputEmpty) {
     return (
-      <Jumbotron className="searchResultsContainer backgroundContainer">
-        <Grid>
-          <Row>
-            <Col md={12}>
-              <Glyphicon glyph="glyphicon glyphicon-question-sign" bsSize="large" />
-              <h4 className="backgroundMessage">No results found</h4>
-              <p className="infoMessage">Sorry, your search did not match anything.</p>
-            </Col>
-          </Row>
-        </Grid>
-      </Jumbotron>
+      <BlockInfo>
+        <Glyphicon glyph="glyphicon glyphicon-question-sign" bsSize="large" />
+        <h4 className="backgroundMessage">No results found</h4>
+        <p className="infoMessage">Sorry, your search did not match anything.</p>
+      </BlockInfo>
     );
   } else if (isSearchInputEmpty) {
     return (
-      <Jumbotron className="searchResultsContainer backgroundContainer emptyBackground">
-        <Grid>
-          <Row>
-            <Col md={12} />
-          </Row>
-        </Grid>
-      </Jumbotron>
+      <BlockInfo />
     );
   }
 
