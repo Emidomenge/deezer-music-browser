@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import NavBar from './navbar/NavbarComponent';
-import Footer from './components/footer/footer';
+import Header from './components/header';
+import Footer from './components/footer';
 import Search from './components/search';
 import SearchResults from './searchResults/SearchResultsComponent';
 import withController from './withController';
-import ScrollTopButton from './scrollTopButton/ScrollTopButtonComponent';
+import ScrollTopButton from './components/scrollTopButton/scrollTopButton';
 
 const API_TEST = 'https://api.deezer.com/search/track?q=';
 
@@ -19,7 +19,7 @@ const App = (props) => {
 
   return (
     <div className="App">
-      <NavBar appName="Deezer-music-browser" />
+      <Header appName="Deezer-music-browser" />
       <Search placeholderLabel="Search songs which you love !" onChangeCallback={onChangeCallback} />
       <SearchResults
         dataToSerialize={musicRecordsResults}
