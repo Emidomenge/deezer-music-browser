@@ -218,7 +218,8 @@ const WithController = url => WrappedComponent => class SearchResultsBody extend
 
 
   render() {
-    return <WrappedComponent {...this.props} {...this.state} />;
+    const controllerState = { ...this.state };
+    return <WrappedComponent controllerState={controllerState} />;
   }
 };
 

@@ -1,5 +1,5 @@
 import {
-  Col, Glyphicon, Grid, Image, Jumbotron, Row,
+  Col, Glyphicon, Grid, Jumbotron, Row,
 } from 'react-bootstrap';
 import Fade from 'react-reveal/Fade';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -8,17 +8,28 @@ import ReactTable from 'react-table';
 import React from 'react';
 import Spinner from 'react-spinkit';
 import './searchResult.css';
+import PropTypes from 'prop-types';
+import columsSettings from './columnsSettings';
 
 const SearchResult = (props) => {
   const {
-    dataToSerialize, isLoading, hasError, isSearchInputEmpty, handleLoadMore, searchStatus, onSortedCallback, columnSorted,
+    dataToSerialize,
+    isLoading,
+    hasError,
+    isSearchInputEmpty,
+    handleLoadMore,
+    searchStatus,
+    onSortedCallback,
+    columnSorted,
   } = props;
+
   let loadingComponent = <span key="voidLoadingComponent" />;
   let smallLoadingComponent = <span key="voidSmallLoadingComponent" />;
   const firstSearch = searchStatus === 10;
   const hardReload = searchStatus === 55;
+
   if (hasError) {
-    const getError = function () {
+    const getError = () => {
       let errorMsg = '';
       errorMsg = hasError.type ? `${hasError.type}: ${errorMsg}` : errorMsg;
       errorMsg = hasError.message ? errorMsg + hasError.message : errorMsg;
@@ -95,65 +106,6 @@ const SearchResult = (props) => {
     );
   }
 
-  const columns = [
-    {
-      Header: '#',
-      accessor: 'id',
-      Cell: props => (
-        <Fade bottom>
-          <div>{props.value}</div>
-        </Fade>
-      ),
-    }, {
-      Header: 'Image',
-      accessor: 'album.cover_medium',
-      Cell: props => (
-        <Fade>
-          <Image
-            src={props.value}
-            style={{ width: 100, height: 100 }}
-          />
-        </Fade>
-      ),
-      sortable: false,
-    }, {
-      Header: 'Title',
-      accessor: 'title',
-      Cell: props => (
-        <Fade bottom>
-          <div>{props.value}</div>
-        </Fade>
-      ),
-    }, {
-      Header: 'Album',
-      accessor: 'album.title',
-      Cell: props => (
-        <Fade bottom>
-          <div>{props.value}</div>
-        </Fade>
-      ),
-    }, {
-      Header: 'Artist',
-      accessor: 'artist.name',
-      Cell: props => (
-        <Fade bottom>
-          <div>{props.value}</div>
-        </Fade>
-      ),
-    }, {
-      Header: 'Duration',
-      accessor: 'duration',
-      Cell: props => (
-        <Fade bottom>
-          <div>
-            {props.value}
-            {' '}
-seconds
-          </div>
-        </Fade>
-      ),
-    }];
-
   return (
     <Grid className="searchResultsContainer">
       <Row>
@@ -171,7 +123,7 @@ seconds
                 collapseOnDataChange={false}
                 minRows={0}
                 data={dataToSerialize}
-                columns={columns}
+                columns={columsSettings}
                 onSortedChange={onSortedCallback}
                 defaultSorted={columnSorted}
               />
@@ -181,6 +133,22 @@ seconds
       </Row>
     </Grid>
   );
+};
+
+SearchResult.propTypes = {
+  dataToSerialize: PropTypes.arrayOf(PropTypes.any),
+  isLoading: PropTypes.bool.isRequired,
+  hasError: PropTypes.objectOf(PropTypes.any),
+  isSearchInputEmpty: PropTypes.bool.isRequired,
+  handleLoadMore: PropTypes.func.isRequired,
+  searchStatus: PropTypes.number.isRequired,
+  onSortedCallback: PropTypes.func.isRequired,
+  columnSorted: PropTypes.arrayOf(PropTypes.any).isRequired,
+};
+
+SearchResult.defaultProps = {
+  dataToSerialize: [],
+  hasError: undefined,
 };
 
 export default SearchResult;
