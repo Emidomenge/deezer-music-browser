@@ -10,7 +10,7 @@ This is a simple single-page app (SPA) build with [React](https://reactjs.org/).
 Project created by [Emilien Domenge-Heritier](http://www.domenge.fr/)  
 ## Demo  
   
-   - Coming soon ...
+- [Click here ! :D](https://deezer-music-browser.firebaseapp.com/)   
    
 	  **NOTE**:  If you're curious, take a look to logs displayed in the console of your favorite inspect tools
   
