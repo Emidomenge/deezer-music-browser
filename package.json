@@ -6,6 +6,7 @@
     "babel-polyfill": "^6.26.0",
     "bootstrap": "^3.3.7",
     "lodash": "^4.17.5",
+    "prop-types": "^15.6.2",
     "react": "^16.3.0",
     "react-bootstrap": "^0.32.1",
     "react-dom": "^16.3.0",
@@ -16,12 +17,14 @@
     "react-table": "^6.8.0"
   },
   "scripts": {
-    "start": "PORT=3101 react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
+  "proxy": "http://cors-proxy.htmldriven.com/",
   "devDependencies": {
+    "babel-eslint": "^10.0.1",
     "eslint": "^5.9.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.14.0",

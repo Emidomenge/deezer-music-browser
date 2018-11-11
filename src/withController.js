@@ -22,7 +22,7 @@ const DEEZER_API_INDEX_INTERVAL = 25;
 if (!window.console) window.console = {};
 if (!window.console.log) window.console.log = function () {};
 
-const withSearchResultsController = url => WrappedComponent => class SearchResultsBody extends Component {
+const WithController = url => WrappedComponent => class SearchResultsBody extends Component {
   constructor(props) {
     super(props);
 
@@ -55,9 +55,14 @@ const withSearchResultsController = url => WrappedComponent => class SearchResul
 
   componentDidMount() {
     let newSearch = false;
+    const {
+      currentComputedSearchInput, searchInputValue, error, apiCallStatus, nbTotalFoundResults,
+      nbApiCall, urlSortOption, nextQueryUrl, data,
+    } = this.state;
+
 
     // Check if this is a new search or not
-    if (this.state.currentComputedSearchInput !== this.state.searchInputValue || this.state.error) {
+    if (currentComputedSearchInput !== searchInputValue || error) {
       this.setState({
         data: [],
         nbTotalFoundResults: null,
@@ -72,12 +77,13 @@ const withSearchResultsController = url => WrappedComponent => class SearchResul
       console.log('[Info] New search detected.');
     }
 
-    if (this.state.searchInputValue === '') {
+    if (searchInputValue === '') {
       this.setState({
         isSearchInputEmpty: true,
       });
-    } else if (this.state.apiCallStatus === 100 && !newSearch) {
-
+    } else if (apiCallStatus === 100 && !newSearch) {
+      // Do nothing...
+      return null;
     } else {
       const refreshState = {
         isLoading: true,
@@ -86,12 +92,14 @@ const withSearchResultsController = url => WrappedComponent => class SearchResul
       };
 
       // Check if no more results to display (= end of "infinite" loop)
-      if (this.state.nbTotalFoundResults < DEEZER_API_INDEX_INTERVAL * this.state.nbApiCall) {
+      if (nbTotalFoundResults < DEEZER_API_INDEX_INTERVAL * nbApiCall) {
         refreshState.apiCallStatus = 100;
         this.setState(refreshState);
-        return;
+
+        // And stop...
+        return null;
       }
-      if (!newSearch && this.state.apiCallStatus === 10) {
+      if (!newSearch && apiCallStatus === 10) {
         refreshState.apiCallStatus = 50; // called only when triggering infinite scroll first time
       }
 
@@ -100,10 +108,10 @@ const withSearchResultsController = url => WrappedComponent => class SearchResul
       // As app is running in localhost, use proxy to avoid CORS problem (WARNING: might be too slow, sometimes...)
       const proxyUrlIE9 = 'http://cors-proxy.htmldriven.com/?url=';
 
-      const urlFirstSearch = proxyUrlIE9 + encodeURIComponent(url + this.state.searchInputValue + this.state.urlSortOption);
-      const urlContinueSearch = proxyUrlIE9 + encodeURIComponent(this.state.nextQueryUrl + this.state.urlSortOption);
+      const urlFirstSearch = proxyUrlIE9 + encodeURIComponent(url + searchInputValue + urlSortOption);
+      const urlContinueSearch = proxyUrlIE9 + encodeURIComponent(nextQueryUrl + urlSortOption);
 
-      console.log(`[componentDidMount] Option: '${this.state.urlSortOption}' with status: ${this.state.apiCallStatus}`);
+      console.log(`[componentDidMount] Option: '${urlSortOption}' with status: ${apiCallStatus}`);
 
       fetch(newSearch ? urlFirstSearch : urlContinueSearch)
         .then((response) => {
@@ -112,12 +120,12 @@ const withSearchResultsController = url => WrappedComponent => class SearchResul
           }
           throw new Error('Something went wrong ...');
         })
-        .then((deezerApiResults) => {
-          if (deezerApiResults.error) {
-            this.setState({ error: deezerApiResults.error, isLoading: false });
+        .then((results) => {
+          if (results.error) {
+            this.setState({ error: results.error, isLoading: false });
           } else {
-            deezerApiResults = JSON.parse(deezerApiResults.body);
-            const mergedArray = (this.state.data).concat(deezerApiResults.data);
+            const deezerApiResults = JSON.parse(results.body);
+            const mergedArray = (data).concat(deezerApiResults.data);
             const uniqueArray = this.extractUniqueArrayFrom(mergedArray);
             const nbDuplicate = mergedArray.length - uniqueArray.length;
 
@@ -128,8 +136,7 @@ const withSearchResultsController = url => WrappedComponent => class SearchResul
             console.log(`[Info] Current amount of displayed records found ${uniqueArray.length}.`);
             console.log('------------------');
 
-            const searchInputValue = this.state.searchInputValue;
-            const computedNbApiCall = this.state.nbApiCall + 1;
+            const computedNbApiCall = nbApiCall + 1;
             let currentStatus = computedNbApiCall === 1 ? 10 : 50; // 10 = firstCall status | 50 = 'more results to display' status
             currentStatus = currentStatus === 55 ? 50 : currentStatus; // put back to status 50 after hard reload done
 
@@ -144,10 +151,11 @@ const withSearchResultsController = url => WrappedComponent => class SearchResul
             });
           }
         })
-        .catch((error) => {
-          this.setState({ error, isLoading: false });
+        .catch((err) => {
+          this.setState({ err, isLoading: false });
         });
     }
+    return null;
   }
 
   onSearchInputChange(event) {
@@ -155,10 +163,12 @@ const withSearchResultsController = url => WrappedComponent => class SearchResul
     this.triggerChangeCallback(event);
   }
 
-  handleLoadMore(page) {
-    if (!this.state.isLoading) this.componentDidMount();
+  handleLoadMore(/* page */) {
+    const { isLoading } = this.state;
+    if (!isLoading) this.componentDidMount();
   }
 
+  // eslint-disable-next-line class-methods-use-this
   extractUniqueArrayFrom(arr) {
     const cleaned = [];
     arr.forEach((itm) => {
@@ -174,6 +184,7 @@ const withSearchResultsController = url => WrappedComponent => class SearchResul
   handleSort(columnSorted) {
     let columnKey = '';
     const sortKey = columnSorted[0].desc ? '_DESC' : '_ASC';
+    const { searchInputValue, isLoading } = this.state;
 
     switch (columnSorted[0].id) {
       case 'title':
@@ -195,13 +206,13 @@ const withSearchResultsController = url => WrappedComponent => class SearchResul
     this.setState({
       data: [],
       nbTotalFoundResults: null,
-      nextQueryUrl: url + this.state.searchInputValue,
+      nextQueryUrl: url + searchInputValue,
       nbApiCall: 0,
       apiCallStatus: 55, // force hard reload
       urlSortOption: `&order=${columnKey}${sortKey}`,
       columnSorted,
     }, function () {
-      if (!this.state.isLoading) this.componentDidMount();
+      if (!isLoading) this.componentDidMount();
     });
   }
 
@@ -211,4 +222,4 @@ const withSearchResultsController = url => WrappedComponent => class SearchResul
   }
 };
 
-export default withSearchResultsController;
+export default WithController;

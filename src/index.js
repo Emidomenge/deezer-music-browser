@@ -8,8 +8,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 import 'react-table/react-table.css'
 import './index.css';
-import './searchbar/Searchbar.css';
-import './footer/Footer.css';
+import './components/footer/footer.css';
 import './searchResults/SearchResult.css';
 import './scrollTopButton/ScrollTopButton.css';
 import App from './App';
