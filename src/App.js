@@ -3,11 +3,11 @@ import './App.css';
 import Header from './components/header';
 import Footer from './components/footer';
 import Search from './components/search';
-import SearchResults from './searchResults/SearchResultsComponent';
-import withController from './withController';
+import SearchResult from './components/searchResult';
 import ScrollTopButton from './components/scrollTopButton/scrollTopButton';
+import withController from './withController';
 
-const API_TEST = 'https://api.deezer.com/search/track?q=';
+const apiUrl = 'https://api.deezer.com/search/track?q=';
 
 const App = (props) => {
   const {
@@ -21,7 +21,7 @@ const App = (props) => {
     <div className="App">
       <Header appName="Deezer-music-browser" />
       <Search placeholderLabel="Search songs which you love !" onChangeCallback={onChangeCallback} />
-      <SearchResults
+      <SearchResult
         dataToSerialize={musicRecordsResults}
         isLoading={isLoading}
         hasError={error}
@@ -37,4 +37,4 @@ const App = (props) => {
   );
 };
 
-export default withController(API_TEST)(App);
+export default withController(apiUrl)(App);

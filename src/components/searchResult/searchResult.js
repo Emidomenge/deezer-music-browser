@@ -1,15 +1,15 @@
-import React from 'react';
 import {
-  Grid, Row, Col, Image, Jumbotron, Glyphicon,
+  Col, Glyphicon, Grid, Image, Jumbotron, Row,
 } from 'react-bootstrap';
-import InfiniteScroll from 'react-infinite-scroller';
-import ReactTable from 'react-table';
 import Fade from 'react-reveal/Fade';
+import InfiniteScroll from 'react-infinite-scroller';
 import Zoom from 'react-reveal/Zoom';
+import ReactTable from 'react-table';
+import React from 'react';
+import Spinner from 'react-spinkit';
+import './searchResult.css';
 
-const Spinner = require('react-spinkit');
-
-const SearchResults = (props) => {
+const SearchResult = (props) => {
   const {
     dataToSerialize, isLoading, hasError, isSearchInputEmpty, handleLoadMore, searchStatus, onSortedCallback, columnSorted,
   } = props;
@@ -183,4 +183,4 @@ seconds
   );
 };
 
-export default SearchResults;
+export default SearchResult;
