@@ -10,7 +10,5 @@ import './index.css';
 import './components/footer/index.css';
 import './components/scrollTopButton/index.css';
 import App from './app';
-import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
