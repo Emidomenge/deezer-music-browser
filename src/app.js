@@ -1,11 +1,10 @@
 import React from 'react';
-import './App.css';
 import PropTypes from 'prop-types';
 import Header from './components/header';
 import Footer from './components/footer';
 import Search from './components/search';
 import SearchResult from './components/searchResult';
-import ScrollTopButton from './components/scrollTopButton/scrollTopButton';
+import ScrollTopButton from './components/scrollTopButton';
 import withController from './withController';
 
 const apiUrl = 'https://api.deezer.com/search/track?q=';
@@ -14,7 +13,7 @@ const App = (props) => {
   const { controllerState } = props;
 
   return (
-    <div className="App">
+    <div className="tc">
       <Header appName="Deezer-music-browser" />
       <Search
         placeholderLabel="Search songs which you love !"

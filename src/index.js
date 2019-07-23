@@ -1,16 +1,15 @@
-import 'core-js/es6/map';
-import 'core-js/es6/set';
-import 'babel-polyfill';
-import 'raf/polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'babel-polyfill';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
-import 'react-table/react-table.css'
+import './assets/css/tachyons.min.css';
+import 'react-table/react-table.css';
 import './index.css';
-import './components/footer/footer.css';
-import './components/scrollTopButton/scrollTopButton.css';
-import App from './App';
+// TODO:
+import './components/footer/index.css';
+import './components/scrollTopButton/index.css';
+import App from './app';
 import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(<App />, document.getElementById('root'));

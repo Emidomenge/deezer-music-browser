@@ -5,15 +5,14 @@
   
 ![App_Cover](https://image.ibb.co/bDmWx7/Screen_Shot_2018_04_02_at_8_00_05_PM.png)  
   
-This is a simple single-page app (SPA) build with [React](https://reactjs.org/). <br> This SPA allows you to browse music informations thanks to the [Deezer API](https://developers.deezer.com/api).  
+This is a simple single-page app (SPA) build with [React](https://reactjs.org/). <br> This SPA allows you to browse music thanks to the [Deezer API](https://developers.deezer.com/api).  
   
 Project created by [Emilien Domenge-Heritier](http://www.domenge.fr/)  
+
 ## Demo  
   
-- [Click here ! :D](https://deezer-music-browser.firebaseapp.com/)   
+- [Click here](https://deezer-music-browser.firebaseapp.com/)   
    
-	  **NOTE**:  If you're curious, take a look to logs displayed in the console of your favorite inspect tools
-  
 ## Main features of this SPA  
   
  - [DONE] - Ability to search a song  
@@ -42,25 +41,30 @@ Project created by [Emilien Domenge-Heritier](http://www.domenge.fr/)
 ## Available Scripts  
   
 **Prerequisite:**  
- - Make use you have React:  `npm install -g create-react-app`  
- - Install node package dependencies: `npm install` 
- - In order to avoid **CORS problems** with the API, download an extension for your favorite browser, such as [Allow-Control-Allow-Origin: *](https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi) if you're using Chrome. 
+ - Clone the project  
+ - Go to the project directory and install node package dependencies: `npm install` 
   
-Then, in the project directory, you can run:  
-  
+**After prerequisites:**  
+   
 ### `npm start`  
   
 Runs the app in the development mode.<br>  
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.  
+
+### `npm run test`   
+
+Runs unit tests powered with Jest and Enzyme. 
   
   
-### `npm test`  
-  
-Launches the test runner in the interactive watch mode.  
+**Notes:**  
+- All logs are available voluntary on production environment
   
   
 ## Framework/Librairies Used  
   
+ - [Tachyons](https://github.com/tachyons-css/tachyons/)  
+ - [Enzyme](https://github.com/airbnb/enzyme)  
+ - [Jest](https://jestjs.io/)  
  - [React Bootstrap](https://react-bootstrap.github.io/)  
  - [React-spinkit](https://github.com/KyleAMathews/react-spinkit)  
  - [Lodash](https://lodash.com/)  
@@ -68,6 +72,69 @@ Launches the test runner in the interactive watch mode.
  - [React-table](https://react-table.js.org/#/story/readme)  
  - [React-reveal](https://github.com/rnosov/react-reveal)  
  - [React Scroll](https://www.npmjs.com/package/react-scroll)  
+ 
+ ## Project Structure
+ 
+  ```
+project
+|   README.md
+|   .eslintrc (= eslint config) 
+|
++---.enzyme
+|   |   (=contains enzyme settings)
+|   |   ...
+|
++---public
+|   |   (=contains page template settings)
+|   |   ...
+|
++---src
+    |   index.js        (= React input)
+    |   app.js          (= first React component, main component)
+    |   index.css       (= global css)
+    |
+    +---assets          (= all static ressources)
+    |   |   css
+    |   |   img
+    |   
+    +---components      (= contains one or further React component(s))
+    |   |   
+    |   |   [...more details below] 
+    |   
+    +---demoData      (= contains all the static data in order to mock server & database behaviour)
+        |   
+        |   deezer-api-results-sample.json
+        
+```
+**"components" folder structure:**  
+  ```
+components [first level]
+|   
++---myReactComponent
+|   |   
+|   |   index.js            (= contains definition of 'myReactComponent')
+|   |   index.stories.js    (= contains storybook implementation of 'myReactComponent')
+|   |   index.test.js       (= contains unit tests of 'myReactComponent')
+|   |   index.css           (= contains css modules of 'myReactComponent')
+|   |   
+|   +---components          (= contains one or further child components of 'myReactComponent')
+|       +---[... etc ...]
+|
++---myReactComponent2
+|   |   
+|   |   index.js            (= contains definition of 'myReactComponent2')
+|   |   index.stories.js    (= contains storybook implementation of 'myReactComponent2')
+|   |   index.test.js       (= contains unit tests of 'myReactComponent2')
+|   |   index.css           (= contains css modules of 'myReactComponent2')
+|   |   
+|   +---components          (= contains one or further child components of 'myReactComponent2')
+|       +---[... etc ...]
+|
++---[... etc ...]
+|
++---myReactComponentN
+
+```
   
 ## Supported Browsers  
   
