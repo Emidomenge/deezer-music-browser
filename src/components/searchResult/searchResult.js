@@ -58,7 +58,7 @@ const SearchResult = (props) => {
         </BlockInfo>
       </Fade>
     );
-    smallLoadingComponent = <XsLoading />;
+    smallLoadingComponent = <XsLoading key="XsLoading" />;
     if (firstSearch || hardReload) return loadingComponent;
   } else if (dataToSerialize.length === 0 && !isSearchInputEmpty) {
     return (

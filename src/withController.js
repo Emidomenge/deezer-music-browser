@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 import React, { Component } from 'react';
 import Lodash from 'lodash';
+import fetchJsonp from 'fetch-jsonp';
 
 /*
  *  This controller :
@@ -105,15 +106,14 @@ const WithController = url => WrappedComponent => class SearchResultsBody extend
 
       this.setState(refreshState);
 
-      // As app is running in localhost, use proxy to avoid CORS problem (WARNING: might be too slow, sometimes...)
-      const proxyUrlIE9 = 'https://cors-proxy.htmldriven.com/?url=';
+      const url = 'https://api.deezer.com/search/?q=';
 
-      const urlFirstSearch = proxyUrlIE9 + encodeURIComponent(url + searchInputValue + urlSortOption);
-      const urlContinueSearch = proxyUrlIE9 + encodeURIComponent(nextQueryUrl + urlSortOption);
+      const urlFirstSearch = `${url + searchInputValue + urlSortOption}&output=jsonp`;
+      const urlContinueSearch = `${nextQueryUrl + urlSortOption}&output=jsonp`;
 
       console.log(`[componentDidMount] Option: '${urlSortOption}' with status: ${apiCallStatus}`);
 
-      fetch(newSearch ? urlFirstSearch : urlContinueSearch)
+      fetchJsonp(newSearch ? urlFirstSearch : urlContinueSearch)
         .then((response) => {
           if (response.ok) {
             return response.json();
@@ -124,7 +124,8 @@ const WithController = url => WrappedComponent => class SearchResultsBody extend
           if (results.error) {
             this.setState({ error: results.error, isLoading: false });
           } else {
-            const deezerApiResults = JSON.parse(results.body);
+            // const deezerApiResults = JSON.parse(results.body);
+            const deezerApiResults = results;
             const mergedArray = (data).concat(deezerApiResults.data);
             const uniqueArray = this.extractUniqueArrayFrom(mergedArray);
             const nbDuplicate = mergedArray.length - uniqueArray.length;
