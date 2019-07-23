@@ -3,12 +3,13 @@ import {
 } from 'react-bootstrap';
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from './index.css';
 
 const BlockInfo = (props) => {
   const { children, keyName } = props;
   return (
     <Jumbotron
-      className="searchResultsContainer backgroundContainer"
+      className={`searchResultsContainer white ${styles.backgroundContainer}`}
       key={keyName}
     >
       <Grid>

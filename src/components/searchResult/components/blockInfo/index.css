@@ -1,0 +1,6 @@
+/* TODO: improve responsive */
+:local(.backgroundContainer) {
+    background-color: dimgrey;
+    height: 85vw;
+    max-height: 58vh;
+}

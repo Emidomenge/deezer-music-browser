@@ -6,9 +6,9 @@ const XsLoading = () => (
   <Grid key="smallLoadingComponent">
     <Row>
       <Col md={12}>
-        <div className="smallLoading">
+        <div className="pv3">
           <Spinner name="ball-beat" />
-          <h4 className="backgroundMessage">Loading more results...</h4>
+          <h4 className="pv4 backgroundMessage">Loading more results...</h4>
           <Spinner name="ball-beat" />
         </div>
       </Col>

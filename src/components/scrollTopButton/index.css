@@ -1,4 +1,4 @@
-.scrollTopBtn {
+:local(.scrollTopBtn) {
     opacity: 0.3;
     position: fixed;
     bottom: 55px;
@@ -8,6 +8,6 @@
 
 }
 
-.scrollTopBtn:hover {
+:local(.scrollTopBtn:hover) {
     opacity: 1;
 }

@@ -5,24 +5,24 @@ import {
 import Flip from 'react-reveal/Flip';
 import PropTypes from 'prop-types';
 import logo from '../../assets/img/logo.svg';
-import './index.css';
+import styles from './index.css';
 
 const Searchbar = ({ placeholderLabel, onChangeCallback }) => (
-  <Jumbotron>
+  <Jumbotron className={styles.jumbotron}>
     <Grid>
       <Flip top>
         <Row className="show-grid">
           <Col md={12}>
             <div>
-              <img src={logo} className="App-logo" alt="logo" />
-              <h1 className="App-title">Welcome</h1>
-              <p className="App-intro">
+              <img src={logo} className={styles.logo} alt="logo" />
+              <h1 className="f1-ns f2-m">Welcome</h1>
+              <div className="f2-ns f3 mb3">
                 {'This app is running with Deezer API engine.'}
-              </p>
+              </div>
             </div>
           </Col>
-          <Col md={12} className="searchbarInput">
-            <FormGroup>
+          <Col md={12}>
+            <FormGroup className={`mr-auto ml-auto ${styles.searchbarInput}`}>
               <InputGroup>
                 <FormControl
                   type="text"

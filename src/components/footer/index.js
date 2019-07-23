@@ -1,8 +1,8 @@
 import React from 'react';
-import './index.css';
+import styles from './index.css';
 
 const Footer = () => (
-  <footer className="navbar-fixed-bottom">
+  <footer className={`navbar-fixed-bottom ${styles.footer}`}>
     <div className="container">
       <div className="row">
         <p>

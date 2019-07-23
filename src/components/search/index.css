@@ -7,41 +7,24 @@
     }
 }
 
-.App-title {
-    font-size: 1.5em;
-}
-
-.App-logo {
+:local(.logo) {
     animation: App-logo-spin infinite 20s linear;
     height: 80px;
 }
 
-
-.App-intro {
-    font-size: large;
-}
-
-.jumbotron {
+:local(.jumbotron) {
     margin-top: 50px;
     margin-bottom: 0px;
 }
 
-.searchbarInput {
-    padding-left: 260px;
-    padding-right: 260px;
+:local(.searchbarInput) {
+    width: 60%;
+    max-width: 600px;
 }
 
-/* sm = 768-991 pixels		*/
-@media screen and (max-width: 992px) {
-    .searchbarInput {
-        padding-left: 70px;
-        padding-right: 70px;
-    }
-}
 /* xs= 0-767 pixels			*/
 @media screen and (max-width: 768px) {
-    .searchbarInput {
-        padding-left: 20px;
-        padding-right: 20px;
+    :local(.searchbarInput) {
+        width: 90%;
     }
 }

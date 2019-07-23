@@ -5,7 +5,7 @@
   
 ![App_Cover](https://image.ibb.co/bDmWx7/Screen_Shot_2018_04_02_at_8_00_05_PM.png)  
   
-This is a simple single-page app (SPA) build with [React](https://reactjs.org/). <br> This SPA allows you to browse music thanks to the [Deezer API](https://developers.deezer.com/api).  
+This is a simple single-page app (SPA) build with [React v16](https://reactjs.org/). <br> This SPA allows you to browse music thanks to the [Deezer API](https://developers.deezer.com/api).  
   
 Project created by [Emilien Domenge-Heritier](http://www.domenge.fr/)  
 
@@ -65,7 +65,7 @@ Runs unit tests powered with Jest and Enzyme.
  - [Tachyons](https://github.com/tachyons-css/tachyons/)  
  - [Enzyme](https://github.com/airbnb/enzyme)  
  - [Jest](https://jestjs.io/)  
- - [React Bootstrap](https://react-bootstrap.github.io/)  
+ - [React Bootstrap (v3)](https://react-bootstrap.github.io/)  
  - [React-spinkit](https://github.com/KyleAMathews/react-spinkit)  
  - [Lodash](https://lodash.com/)  
  - [React Infinite Scroller](https://github.com/CassetteRocks/react-infinite-scroller)  

@@ -13,7 +13,7 @@ const App = (props) => {
   const { controllerState } = props;
 
   return (
-    <div className="tc">
+    <div id="appBody" className="tc">
       <Header appName="Deezer-music-browser" />
       <Search
         placeholderLabel="Search songs which you love !"

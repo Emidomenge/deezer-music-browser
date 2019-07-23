@@ -1,4 +1,4 @@
-footer {
+:local(.footer) {
     background-color: #eee;
     padding-top: 15px;
 }

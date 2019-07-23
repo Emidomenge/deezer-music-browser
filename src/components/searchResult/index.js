@@ -7,8 +7,8 @@ import Zoom from 'react-reveal/Zoom';
 import ReactTable from 'react-table';
 import React from 'react';
 import Spinner from 'react-spinkit';
-import './index.css';
 import PropTypes from 'prop-types';
+import styles from './index.css';
 import BlockInfo from './components/blockInfo';
 import XsLoading from './components/xsLoading';
 import columsSettings from './columnsSettings';
@@ -40,9 +40,9 @@ const SearchResult = (props) => {
     };
     return (
       <BlockInfo>
-        <Glyphicon glyph="glyphicon glyphicon-remove-circle" bsSize="large" />
+        <Glyphicon glyph={`glyphicon glyphicon-remove-circle ${styles.asset}`} bsSize="large" />
         <h4 className="backgroundMessage">Ouch, something went wrong:</h4>
-        <p className="errorMessage">{ getError() }</p>
+        <p className="red">{ getError() }</p>
       </BlockInfo>
     );
   }
@@ -63,7 +63,7 @@ const SearchResult = (props) => {
   } else if (dataToSerialize.length === 0 && !isSearchInputEmpty) {
     return (
       <BlockInfo>
-        <Glyphicon glyph="glyphicon glyphicon-question-sign" bsSize="large" />
+        <Glyphicon glyph={`glyphicon glyphicon-question-sign ${styles.asset}`} bsSize="large" />
         <h4 className="backgroundMessage">No results found</h4>
         <p className="infoMessage">Sorry, your search did not match anything.</p>
       </BlockInfo>
@@ -75,7 +75,7 @@ const SearchResult = (props) => {
   }
 
   return (
-    <Grid className="searchResultsContainer">
+    <Grid className="pv4">
       <Row>
         <Col md={12}>
           <InfiniteScroll

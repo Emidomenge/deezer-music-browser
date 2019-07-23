@@ -3,6 +3,7 @@ import {
   Button, Popover, OverlayTrigger, Glyphicon,
 } from 'react-bootstrap';
 import { scroller } from 'react-scroll';
+import styles from './index.css';
 
 const ScrollTopButton = () => {
   const popoverHover = (
@@ -10,7 +11,7 @@ const ScrollTopButton = () => {
       <strong>Go back to top</strong>
     </Popover>
   );
-  const scrollTop = function () {
+  const scrollTop = () => {
     scroller.scrollTo('header', {
       duration: 1000,
       delay: 50,
@@ -26,7 +27,7 @@ const ScrollTopButton = () => {
     >
       <Button
         bsStyle="primary"
-        className="scrollTopBtn"
+        className={styles.scrollTopBtn}
         onClick={scrollTop}
       >
         <Glyphicon glyph="glyphicon glyphicon-arrow-up" />
