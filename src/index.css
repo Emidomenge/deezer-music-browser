@@ -16,7 +16,3 @@ body {
 .rt-tr-group .rt-tr {
     align-items: center;
 }
-
-.min-vh-90 {
-    min-height: 70vh;
-}
